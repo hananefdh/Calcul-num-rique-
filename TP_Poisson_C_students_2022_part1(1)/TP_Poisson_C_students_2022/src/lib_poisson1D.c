@@ -23,14 +23,39 @@ void set_GB_operator_colMajor_poisson1D(double* AB, int *lab, int *la, int *kv) 
 void set_GB_operator_colMajor_poisson1D_Id(double* AB, int *lab, int *la, int *kv){
 }
 
+//la valeur initiale du vecteur Ax=b , donc cette fonction permet de créer b 
+
 void set_dense_RHS_DBC_1D(double* RHS, int* la, double* BC0, double* BC1){
-}  
+    int n = *la;
+   
+    RHS[0] = *BC0;
+
+    
+    for (int i = 1; i < n - 1; ++i) {
+        RHS[i] = 0.0; 
+    }
+
+    RHS[n - 1] = *BC1;
+}
+ 
 
 void set_analytical_solution_DBC_1D(double* EX_SOL, double* X, int* la, double* BC0, double* BC1){
+  int n = *la ; 
+  for (int i= 0 ; i< n-1 ; i++){
+    EX_SOL[i] = *BC0 + X[BC1-BC0] ; 
+  }
 }  
 
 void set_grid_points_1D(double* x, int* la){
+    int n = *la; 
+    double h = 1.0 / (n + 1); //pas ou espacement entre points 
+
+    
+    for (int i = 0; i < n; ++i) {
+        x[i] = (i + 1) * h; 
+    }
 }
+
 
 void write_GB_operator_rowMajor_poisson1D(double* AB, int* lab, int* la, char* filename){
   FILE * file;
