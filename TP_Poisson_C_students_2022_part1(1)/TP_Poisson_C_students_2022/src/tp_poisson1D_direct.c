@@ -39,7 +39,7 @@ int main(int argc,char *argv[])
   set_grid_points_1D(X, &la);
   set_dense_RHS_DBC_1D(RHS,&la,&T0,&T1);
   set_analytical_solution_DBC_1D(EX_SOL, X, &la, &T0, &T1);
-  cblas_dgbmv(CblasColMajor, CblasNoTrans, n, n, KL, KU, 1.0, AB, lda, x, 1, 0.0, y, 1);
+  //cblas_dgbmv(CblasColMajor, CblasNoTrans, n, n, KL, KU, 1.0, AB, lda, x, 1, 0.0, y, 1);
   
   write_vec(RHS, &la, "RHS.dat");
   write_vec(EX_SOL, &la, "EX_SOL.dat");
@@ -60,7 +60,7 @@ int main(int argc,char *argv[])
   /* LU Factorization */
   info=0;
   ipiv = (int *) calloc(la, sizeof(int));
-  dgbtrf_(&la, &la, &kl, &ku, AB, &lab, ipiv, &info);
+  //dgbtrf_(&la, &la, &kl, &ku, AB, &lab, ipiv, &info);
 
   /* LU for tridiagonal matrix  (can replace dgbtrf_) */
   // ierr = dgbtrftridiag(&la, &la, &kl, &ku, AB, &lab, ipiv, &info);
